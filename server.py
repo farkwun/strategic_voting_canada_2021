@@ -11,11 +11,17 @@ db_file = sv.settings.DB_LOCATION
 
 DATABASE = sv.svdb.SVDatabase(db_file)
 
-@route('/district/<district_id>')
+
+@route("/district/<district_id>")
 def district_info(district_id):
     if DATABASE.district_exists(district_id):
         district = DATABASE.get_district_from_id(district_id)
 
-    return {'id': district_id, 'properties': district.properties, 'last_updated': district.last_updated}
+    return {
+        "id": district_id,
+        "properties": district.properties,
+        "last_updated": district.last_updated,
+    }
 
-run(host='0.0.0.0', port=8080, debug=True, reloader=True)
+
+run(host="0.0.0.0", port=8080, debug=True, reloader=True)

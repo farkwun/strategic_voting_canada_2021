@@ -1,1 +1,1 @@
-DB_LOCATION = 'db/sv_tables.db'
+DB_LOCATION = "db/sv_tables.db"
