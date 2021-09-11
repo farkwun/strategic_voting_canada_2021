@@ -1,6 +1,11 @@
+import json
+
+
 class District:
     def __init__(self, row_tuple):
         (self.district_id, self.properties, self.last_updated) = row_tuple
+        if isinstance(self.properties, str):
+            self.properties = json.loads(self.properties)
 
     def __repr__(self):
         return (
