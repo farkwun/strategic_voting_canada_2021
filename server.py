@@ -18,7 +18,7 @@ def district_info(district_id):
         district = DATABASE.get_district_from_id(district_id)
         return {
             "id": district_id,
-            "properties": district.properties,
+            "properties": json.loads(district.properties),
             "last_updated": district.last_updated,
         }
     else:

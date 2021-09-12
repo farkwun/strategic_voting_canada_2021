@@ -1,0 +1,5 @@
+bottle==0.12.19
+flake8==3.9.2
+html5lib==1.1
+requests==2.22.0
+beautifulsoup4==4.10.0

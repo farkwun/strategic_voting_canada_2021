@@ -23,17 +23,18 @@ CANVASES = {
 SCRIPT_IMPORTS = '<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js" integrity="sha512-SRW1NuegWCD4fowVB3sUwr2LnLnVAcKTCtYT9z84rskfoqqtIZfEW1iKB0uF1RzvdSbqcVIs6FkONjj5j88RYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js" integrity="sha512-qRj8N7fxOHxPkKjnQ9EJgLJ8Ng1OK7seBn1uk8wkqaXpa7OA13LO6txQ7+ajZonyc9Ts4K/ugXljevkFTUGBcw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/0.7.0/chartjs-plugin-datalabels.js" integrity="sha512-yvu1r8RRJ0EHKpe1K3pfHF7ntjnDrN7Z66hVVGB90CvWbWTXevVZ8Sy1p+X4sS9M9Z+Q9tZu1GjGzFFmu/pAmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/0.7.5/chartjs-plugin-zoom.min.js" integrity="sha512-zk7yFI526LXuJ2Av7n05jBKslJkqBG8DgLRW8+Eev4xm/lo2v86ZJ78+HQkkFX+9/Rn5jy3YS3CQqqoIQCPR1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="https://qc125.com/verticalBar.js"></script><script src="https://qc125.com/moments.js"></script> <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.3/chartjs-plugin-annotation.min.js"></script>'
 
 def get_parties_from_script(data):
-    p = re.compile('var parties = \[([^\]]*)\]')
+    p = re.compile("var parties = \[([^\]]*)\]")
     # print(str(data.contents))
     m = p.search(str(data.contents))
     # print(m.groups()[0])
     parties_str = m.groups()[0]
     parties = parties_str.split(",")
-    parties = [x.replace("\\", "").replace("'","") for x in parties if x]
+    parties = [x.replace("\\", "").replace("'", "") for x in parties if x]
     return parties
 
+
 def get_percentages_from_script(data):
-    p = re.compile('var moyennes = \[([^\]]*)\]')
+    p = re.compile("var moyennes = \[([^\]]*)\]")
     # print(str(data.contents))
     m = p.search(str(data.contents))
     # print(m.groups()[0])
@@ -42,8 +43,9 @@ def get_percentages_from_script(data):
     means = [float(x) for x in means if x]
     return means
 
+
 def get_error_from_script(data):
-    p = re.compile('var moes = \[([^\]]*)\]')
+    p = re.compile("var moes = \[([^\]]*)\]")
     # print(str(data.contents))
     m = p.search(str(data.contents))
     # print(m.groups()[0])
@@ -63,7 +65,7 @@ def get_last_updated(soup):
 def get_vote_projections(soup, properties):
     properties[MEAN] = {}
     properties[ERROR] = {}
-    data  = soup.find_all("script")[10]
+    data = soup.find_all("script")[10]
     parties = get_parties_from_script(data)
     means = get_percentages_from_script(data)
     errors = get_error_from_script(data)

@@ -20,11 +20,11 @@ class SVDatabase(Database):
         self.query(sql)
         return District(self.fetchone())
 
-    def add_district(self, district_id, district_properties):
+    def add_district(self, district_id, district_properties, last_updated):
         sql = "INSERT INTO districts VALUES('{id}', '{properties}', '{last_updated}')".format(
             id=district_id,
             properties=json.dumps(district_properties),
-            last_updated=date.today().strftime("%Y/%m/%d"),
+            last_updated=last_updated,
         )
         self.write(sql)
 
